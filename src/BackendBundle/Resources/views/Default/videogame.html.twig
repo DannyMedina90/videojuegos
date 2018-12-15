@@ -1,0 +1,104 @@
+{% extends 'AppBundle:Layout:template.html.twig' %}
+{% block style %} 
+    <!--ARCHIVOS CSS-->
+    {{parent()}}
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="">
+                        Usuarios
+                    </a>
+                    <a class="navbar-brand" href="">
+                        Carreras
+                    </a>
+                    <a class="navbar-brand" href="">
+                        Cerrar Sesión
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <h1>Usuarios</h1>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success" role="alert">{{flashMessage}}</div>
+        {%endfor%}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger" role="alert">{{flashMessage}}</div>
+        {%endfor%}
+        {%if listUsers!=null%}
+            <table class="table table-striped">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Nickname</th>
+                    <th>Email</th>
+                    <th>Sexo</th>
+                    <th>Carrera</th>
+                    <th>Acciones</th>
+                <tr>
+                <tbody>
+                    {% for item in listUsers %}
+                        <tr>
+                            <td>{{item.name ~ ' ' ~ item.lastName}}</td>
+                            <td>{{item.nickName}}</td>
+                            <td>{{item.email}}</td>
+                            <td>
+                                {%if item.gender== 1%}
+                                    Hombre
+                                {%elseif item.gender==2%}
+                                    Mujer
+                                {%endif%}
+                            </td>
+                            <td>{%if item.career != null %}{{item.career.career}}{%else%}Sin Carrera{%endif%}</td>
+                            <td>
+                                <a href="{{path('app_update',{'id':item.id | urlencrypt})}}" class="btn btn-primary">Modificar</a>
+                                <a href="{{path('app_delete',{'id':item.id})}}" class="btn btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            {{knp_pagination_render(listUsers)}}
+        {%endif%}
+    </div>
+
+    <br>
+    <div class="col-lg-3">
+        <h2>Usuario</h2>
+        {{ form_start(formUser) }}
+        {{ form_errors(formUser) }}
+        {{ form_row(formUser.name)}}
+        {{ form_row(formUser.lastname)}}
+        {{ form_row(formUser.nickname)}}
+        {{ form_row(formUser.gender)}}
+        {{ form_row(formUser.email)}}
+        {{ form_row(formUser.password)}}
+        {{ form_row(formUser.career)}}
+        <br>
+        {{ form_widget(formUser.submit, {'attr': {'class': 'btn btn-primary'},'label': 'Aceptar'}) }}
+        {{ form_end(formUser) }}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{parent()}}
+    <!--ARCHIVOS JS-->
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

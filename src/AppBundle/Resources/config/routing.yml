@@ -1,2 +1,7 @@
-## YAML Template.
----
+index:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+    
+app_videogames:
+    path: /videojuegos
+    defaults: { _controller: AppBundle:Videogame:videojuegos }

@@ -7,10 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class VideojuegoType extends AbstractType {
 
@@ -48,10 +47,46 @@ class VideojuegoType extends AbstractType {
                         'requiered' => true
                     )
                 ))
-                ->add('imagen')
-                ->add('precioventa')
-                ->add('idclasificacion')
-                ->add('idclasificaciondetipo');
+                ->add('imagen', TextType::class, array(
+                    'label' => 'Imagen',
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'requiered' => true
+                    )
+                ))
+                ->add('precioventa', NumberType::class, array(
+                    'label' => 'Precio',
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'requiered' => true
+                    )
+                ))
+                ->add('idclasificacion', EntityType::class, array(
+                    'label' => 'Clasificación',
+                    'placeholder' => 'Selecciona una clasificación',
+                    'class' => 'BackendBundle:Clasificacion',
+                    'choice_label' => 'clasificacion',
+                    'expanded' => false,
+                    'multiple' => false,
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'requiered' => true
+                    )
+                ))
+                ->add('idclasificaciondetipo', EntityType::class, array(
+                    'label' => 'Objetivo',
+                    'placeholder' => 'Selecciona el objetivo del juego',
+                    'class' => 'BackendBundle:Clasificaciondetipo',
+                    'choice_label' => 'clasificaciondetipo',
+                    'expanded' => false,
+                    'multiple' => false,
+                    'attr' => array(
+                        'class' => 'form-control',
+                        'requiered' => true
+                    )
+                ))
+                ->add('submit', SubmitType::class, array('label' => 'Registrar'));
+        ;
     }
 
     /**

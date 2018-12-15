@@ -1,0 +1,64 @@
+{% extends 'AppBundle:Layout:template.html.twig' %}
+{% block style %} 
+    <!--ARCHIVOS CSS-->
+    {{parent()}}
+
+{% endblock %}
+
+{% block content %}
+    
+      <div class="col-lg-3">
+        <h2>Registrar Videojuego</h2>
+        {{ form_start(formVideojuegos) }}
+        {{ form_errors(formVideojuegos) }}
+        {{ form_row(formVideojuegos.nombrejuego)}}
+        {{ form_row(formVideojuegos.lenguajes)}}
+        {{ form_row(formVideojuegos.sipnosis)}}
+        {{ form_row(formVideojuegos.imagen)}}
+        {{ form_row(formVideojuegos.idclasificacion)}}
+        {{ form_row(formVideojuegos.idclasificaciondetipo)}}
+        <br>
+        {{ form_widget(formVideojuegos.submit, {'attr': {'class': 'btn btn-primary'},'label': 'Aceptar'}) }}
+        {{ form_end(formVideojuegos) }}
+    </div>
+    
+    <div class="col-lg-12">
+        <h1>Videojuegos</h1>
+        {%if listVideojuegos!=null%}
+            <table class="table table-striped">
+                <tr>
+                    <th>Videojuego</th>
+                    <th>Lenguaje</th>
+                    <th>Sinopsis</th>
+                    <th>Imagen</th>
+                    <th>Clasificación</th>
+                    <th>Clasificación Tipo</th>
+                <tr>
+                <tbody>
+                    {% for item in listVideojuegos %}
+                        <tr>
+                            <td>{{item.nombrejuego}}</td>
+                            <td>{{item.lenguajes}}</td>
+                            <td>{{item.sipnosis}}</td>
+                            <td>{{item.imagen}}</td>
+                            <td>{{item.precioventa}}</td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        {%endif%}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{parent()}}
+    <!--ARCHIVOS JS-->
+{% endblock %}
+
+
+
+
+
+
+
+
